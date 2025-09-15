@@ -1,6 +1,6 @@
 import React from "react";
 
-const LineBetweenPoints = ({ point1, point2 }) => {
+const LineBetweenPoints = ({ point1, point2, stroke }) => {
   return (
     <svg
       width="100%"
@@ -12,7 +12,7 @@ const LineBetweenPoints = ({ point1, point2 }) => {
         y1={point1.y}
         x2={point2.x}
         y2={point2.y}
-        stroke="black"
+        stroke={stroke}
         strokeWidth="10"
       />
     </svg>
