@@ -41,6 +41,11 @@ function App() {
       [1, 5, ""],
     ],
     [
+      [1, 3, ""],
+      [3, 6, ""],
+      [1, 6, ""],
+    ],
+    [
       [1, 4, ""],
       [4, 5, ""],
       [1, 5, ""],
@@ -124,11 +129,14 @@ function App() {
   };
 
   const changLineColor = (linePoints, color) => {
+    console.log("changLineColor");
     allTriangles.map((triangle, index) => {
       triangle.map((line, lineIndex) => {
         if (linePoints[0] === line[0] && linePoints[1] === line[1]) {
+          console.log("Yes");
           const newAllTriangles = [...allTriangles];
           newAllTriangles[index][lineIndex][2] = color;
+          console.log(newAllTriangles);
           setAllTriangles(newAllTriangles);
           checkLoser(newAllTriangles);
         }
