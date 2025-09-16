@@ -324,6 +324,7 @@ function App() {
       <p className="description">
         Try to avoid making a triangle with your color
       </p>
+      <p className="fyi">&#40; Two players only &#41;</p>
       <button className="reset-btn" onClick={handleResetGame}>
         Reset Game
       </button>

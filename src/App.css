@@ -34,7 +34,7 @@
 }
 
 .reset-btn {
-  margin-top: 20px;
+  margin-top: 5px;
   padding-block: 12px;
   font-size: 18px;
   border: 1px solid;
@@ -59,6 +59,12 @@
 .description {
   margin-bottom: 0;
   color: #757575;
+}
+
+.fyi {
+  margin: 0;
+  color: #757575;
+  font-size: 12px;
 }
 
 .hithere {
