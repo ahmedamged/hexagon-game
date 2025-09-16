@@ -173,7 +173,6 @@ function App() {
       const linePoints = [point1Number, point2Number];
       linePoints.sort();
       newLines.push({
-        linePoints,
         linep1: point1,
         linep2: point2,
         color,
