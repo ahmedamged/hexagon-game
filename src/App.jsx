@@ -6,109 +6,110 @@ let point1 = { x: null, y: null };
 let color = "";
 let point1Number = 0;
 let point2Number = 0;
-
+const initialTriangles = [
+  [
+    [1, 2, ""],
+    [2, 3, ""],
+    [1, 3, ""],
+  ],
+  [
+    [1, 2, ""],
+    [2, 4, ""],
+    [1, 4, ""],
+  ],
+  [
+    [1, 2, ""],
+    [2, 5, ""],
+    [1, 5, ""],
+  ],
+  [
+    [1, 2, ""],
+    [2, 6, ""],
+    [1, 6, ""],
+  ],
+  [
+    [1, 3, ""],
+    [3, 4, ""],
+    [1, 4, ""],
+  ],
+  [
+    [1, 3, ""],
+    [3, 5, ""],
+    [1, 5, ""],
+  ],
+  [
+    [1, 3, ""],
+    [3, 6, ""],
+    [1, 6, ""],
+  ],
+  [
+    [1, 4, ""],
+    [4, 5, ""],
+    [1, 5, ""],
+  ],
+  [
+    [1, 4, ""],
+    [4, 6, ""],
+    [1, 6, ""],
+  ],
+  [
+    [1, 5, ""],
+    [5, 6, ""],
+    [1, 6, ""],
+  ],
+  [
+    [2, 3, ""],
+    [3, 4, ""],
+    [2, 4, ""],
+  ],
+  [
+    [2, 3, ""],
+    [3, 5, ""],
+    [2, 5, ""],
+  ],
+  [
+    [2, 3, ""],
+    [3, 6, ""],
+    [2, 6, ""],
+  ],
+  [
+    [2, 4, ""],
+    [4, 5, ""],
+    [2, 5, ""],
+  ],
+  [
+    [2, 4, ""],
+    [4, 6, ""],
+    [2, 6, ""],
+  ],
+  [
+    [2, 5, ""],
+    [5, 6, ""],
+    [2, 6, ""],
+  ],
+  [
+    [3, 4, ""],
+    [4, 5, ""],
+    [3, 5, ""],
+  ],
+  [
+    [3, 4, ""],
+    [4, 6, ""],
+    [3, 6, ""],
+  ],
+  [
+    [4, 5, ""],
+    [5, 6, ""],
+    [4, 6, ""],
+  ],
+];
 function App() {
   const [lines, setLines] = useState([]);
-  const [allTriangles, setAllTriangles] = useState([
-    [
-      [1, 2, ""],
-      [2, 3, ""],
-      [1, 3, ""],
-    ],
-    [
-      [1, 2, ""],
-      [2, 4, ""],
-      [1, 4, ""],
-    ],
-    [
-      [1, 2, ""],
-      [2, 5, ""],
-      [1, 5, ""],
-    ],
-    [
-      [1, 2, ""],
-      [2, 6, ""],
-      [1, 6, ""],
-    ],
-    [
-      [1, 3, ""],
-      [3, 4, ""],
-      [1, 4, ""],
-    ],
-    [
-      [1, 3, ""],
-      [3, 5, ""],
-      [1, 5, ""],
-    ],
-    [
-      [1, 3, ""],
-      [3, 6, ""],
-      [1, 6, ""],
-    ],
-    [
-      [1, 4, ""],
-      [4, 5, ""],
-      [1, 5, ""],
-    ],
-    [
-      [1, 4, ""],
-      [4, 6, ""],
-      [1, 6, ""],
-    ],
-    [
-      [1, 5, ""],
-      [5, 6, ""],
-      [1, 6, ""],
-    ],
-    [
-      [2, 3, ""],
-      [3, 4, ""],
-      [2, 4, ""],
-    ],
-    [
-      [2, 3, ""],
-      [3, 5, ""],
-      [2, 5, ""],
-    ],
-    [
-      [2, 3, ""],
-      [3, 6, ""],
-      [2, 6, ""],
-    ],
-    [
-      [2, 4, ""],
-      [4, 5, ""],
-      [2, 5, ""],
-    ],
-    [
-      [2, 4, ""],
-      [4, 6, ""],
-      [2, 6, ""],
-    ],
-    [
-      [2, 5, ""],
-      [5, 6, ""],
-      [2, 6, ""],
-    ],
-    [
-      [3, 4, ""],
-      [4, 5, ""],
-      [3, 5, ""],
-    ],
-    [
-      [3, 4, ""],
-      [4, 6, ""],
-      [3, 6, ""],
-    ],
-    [
-      [4, 5, ""],
-      [5, 6, ""],
-      [4, 6, ""],
-    ],
-  ]);
+  const [allTriangles, setAllTriangles] = useState(initialTriangles);
   const [firstClick, setFirstClick] = useState(true);
   const [isPlayer1, setIsPlayer1] = useState(true);
   const [loser, setLoser] = useState(null);
+  const [lock, setLock] = useState(false);
 
   const checkLoser = (newAllTriangles) => {
     newAllTriangles.map((triangle) => {
@@ -118,25 +119,24 @@ function App() {
         triangle[2][2] === "maroon"
       ) {
         setLoser("Maroon");
+        setLock(true);
       } else if (
         triangle[0][2] === "darkblue" &&
         triangle[1][2] === "darkblue" &&
         triangle[2][2] === "darkblue"
       ) {
         setLoser("Darkblue");
+        setLock(true);
       }
     });
   };
 
   const changLineColor = (linePoints, color) => {
-    console.log("changLineColor");
     allTriangles.map((triangle, index) => {
       triangle.map((line, lineIndex) => {
         if (linePoints[0] === line[0] && linePoints[1] === line[1]) {
-          console.log("Yes");
           const newAllTriangles = [...allTriangles];
           newAllTriangles[index][lineIndex][2] = color;
-          console.log(newAllTriangles);
           setAllTriangles(newAllTriangles);
           checkLoser(newAllTriangles);
         }
@@ -145,6 +145,9 @@ function App() {
   };
 
   const handleDotClick = (e, num) => {
+    if (lock) {
+      return;
+    }
     if (firstClick) {
       point1 = { x: e.clientX, y: e.clientY };
       point1Number = num;
@@ -152,6 +155,9 @@ function App() {
     } else {
       let point2 = { x: e.clientX, y: e.clientY };
       point2Number = num;
+      if (point1Number === point2Number) {
+        return;
+      }
       if (isPlayer1) {
         color = "darkblue";
         setIsPlayer1((prev) => !prev);
@@ -172,6 +178,15 @@ function App() {
       setFirstClick((prev) => !prev);
       changLineColor(linePoints, color);
     }
+  };
+
+  const handleResetGame = () => {
+    setLock(false);
+    setLines([]);
+    setAllTriangles(initialTriangles);
+    setFirstClick(true);
+    setIsPlayer1(true);
+    setLoser(null);
   };
 
   return (
@@ -201,6 +216,9 @@ function App() {
           />
         ))}
       </div>
+      <button className="reset-btn" onClick={handleResetGame}>
+        Reset Game
+      </button>
     </>
   );
 }

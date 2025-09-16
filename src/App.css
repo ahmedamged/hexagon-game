@@ -33,6 +33,20 @@
   gap: 400px;
 }
 
+.reset-btn {
+  margin-top: 50px;
+  padding-block: 12px;
+  font-size: 18px;
+  border: 1px solid;
+  border-radius: 12px;
+}
+
+.reset-btn:hover {
+  border: 1px solid darkcyan;
+  background: darkcyan;
+  color: white;
+}
+
 .Maroon {
   color: maroon;
 }
