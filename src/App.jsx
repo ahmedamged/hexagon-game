@@ -8,6 +8,7 @@ let point1Number = 0;
 let point2Number = 0;
 function App() {
   const [lines, setLines] = useState([]);
+  const [linesDrawn, setLinesDrawn] = useState([]);
   const [allTriangles, setAllTriangles] = useState([
     [
       [1, 2, ""],
@@ -148,6 +149,20 @@ function App() {
     });
   };
 
+  const checkToDrawLine = (linePoints) => {
+    let drawLine = true;
+    if (linesDrawn.length === 0) {
+      return true;
+    } else {
+      for (let line of linesDrawn) {
+        if (linePoints[0] === line[0] && linePoints[1] === line[1]) {
+          drawLine = false;
+        }
+      }
+      return drawLine;
+    }
+  };
+
   const handleDotClick = (e, num) => {
     if (lock) {
       return;
@@ -162,24 +177,29 @@ function App() {
       if (point1Number === point2Number) {
         return;
       }
-      if (isPlayer1) {
-        color = "darkblue";
-        setIsPlayer1((prev) => !prev);
-      } else {
-        color = "maroon";
-        setIsPlayer1((prev) => !prev);
-      }
       const newLines = [...lines];
       const linePoints = [point1Number, point2Number];
       linePoints.sort();
-      newLines.push({
-        linep1: point1,
-        linep2: point2,
-        color,
-      });
-      setLines(newLines);
+      if (checkToDrawLine(linePoints)) {
+        const newlinesDrawn = [...linesDrawn];
+        newlinesDrawn.push(linePoints);
+        if (isPlayer1) {
+          color = "darkblue";
+          setIsPlayer1((prev) => !prev);
+        } else {
+          color = "maroon";
+          setIsPlayer1((prev) => !prev);
+        }
+        setLinesDrawn(newlinesDrawn);
+        newLines.push({
+          linep1: point1,
+          linep2: point2,
+          color,
+        });
+        setLines(newLines);
+        changLineColor(linePoints, color);
+      }
       setFirstClick((prev) => !prev);
-      changLineColor(linePoints, color);
     }
   };
 
