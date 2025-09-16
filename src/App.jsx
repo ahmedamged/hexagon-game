@@ -206,6 +206,7 @@ function App() {
   const handleResetGame = () => {
     setLock(false);
     setLines([]);
+    setLinesDrawn([]);
     setAllTriangles([
       [
         [1, 2, ""],
