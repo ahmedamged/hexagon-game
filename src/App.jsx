@@ -298,6 +298,7 @@ function App() {
       <h2 className={loser ? `hithere ${loser}` : ""}>
         {loser ? `Loser is ${loser}` : "Keep Playing"}
       </h2>
+
       <div className="hexagon">
         <div className="first">
           <div className="dot" onClick={(e) => handleDotClick(e, 2)}></div>
@@ -320,6 +321,9 @@ function App() {
           />
         ))}
       </div>
+      <p className="description">
+        Try to avoid making a triangle with your color
+      </p>
       <button className="reset-btn" onClick={handleResetGame}>
         Reset Game
       </button>

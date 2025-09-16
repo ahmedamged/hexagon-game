@@ -34,7 +34,7 @@
 }
 
 .reset-btn {
-  margin-top: 50px;
+  margin-top: 20px;
   padding-block: 12px;
   font-size: 18px;
   border: 1px solid;
@@ -54,6 +54,11 @@
 .Darkblue {
   color: darkblue;
 
+}
+
+.description {
+  margin-bottom: 0;
+  color: #757575;
 }
 
 .hithere {
