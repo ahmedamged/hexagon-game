@@ -178,7 +178,6 @@ function App() {
       if (point1Number === point2Number) {
         return;
       }
-      const newLines = [...lines];
       const linePoints = [point1Number, point2Number];
       linePoints.sort();
       if (checkToDrawLine(linePoints)) {
@@ -192,6 +191,7 @@ function App() {
           setIsPlayer1((prev) => !prev);
         }
         setLinesDrawn(newlinesDrawn);
+        const newLines = [...lines];
         newLines.push({
           linep1: point1,
           linep2: point2,
