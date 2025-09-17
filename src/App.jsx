@@ -137,7 +137,7 @@ function App() {
     });
   };
 
-  const changLineColor = (linePoints, color) => {
+  const changeLineColor = (linePoints, color) => {
     allTriangles.map((triangle, index) => {
       triangle.map((line, lineIndex) => {
         if (linePoints[0] === line[0] && linePoints[1] === line[1]) {
@@ -198,7 +198,7 @@ function App() {
           color,
         });
         setLines(newLines);
-        changLineColor(linePoints, color);
+        changeLineColor(linePoints, color);
       }
       setFirstClick((prev) => !prev);
     }
