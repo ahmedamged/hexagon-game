@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import LineBetweenPoints from "./components/LineBetweenPoints";
 import "./App.css";
 
@@ -116,6 +116,7 @@ function App() {
   const [isPlayer1, setIsPlayer1] = useState(true);
   const [loser, setLoser] = useState(null);
   const [lock, setLock] = useState(false);
+  const dotsRefs = useRef([]);
 
   const checkLoser = (newAllTriangles) => {
     newAllTriangles.map((triangle) => {
@@ -169,11 +170,22 @@ function App() {
       return;
     }
     if (firstClick) {
-      point1 = { x: e.clientX, y: e.clientY };
+      if (dotsRefs.current[num - 1]) {
+        const rect = dotsRefs.current[num - 1].getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        point1 = { x: centerX, y: centerY };
+      }
       point1Number = num;
       setFirstClick((prev) => !prev);
     } else {
-      let point2 = { x: e.clientX, y: e.clientY };
+      let point2;
+      if (dotsRefs.current[num - 1]) {
+        const rect = dotsRefs.current[num - 1].getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        point2 = { x: centerX, y: centerY };
+      }
       point2Number = num;
       if (point1Number === point2Number) {
         return;
@@ -222,16 +234,52 @@ function App() {
 
       <div className="hexagon">
         <div className="first">
-          <div className="dot" onClick={(e) => handleDotClick(e, 2)}></div>
-          <div className="dot" onClick={(e) => handleDotClick(e, 3)}></div>
+          <div
+            className="dot"
+            ref={(el) => {
+              dotsRefs.current[1] = el;
+            }}
+            onClick={(e) => handleDotClick(e, 2)}
+          ></div>
+          <div
+            className="dot"
+            ref={(el) => {
+              dotsRefs.current[2] = el;
+            }}
+            onClick={(e) => handleDotClick(e, 3)}
+          ></div>
         </div>
         <div className="second">
-          <div className="dot" onClick={(e) => handleDotClick(e, 1)}></div>
-          <div className="dot" onClick={(e) => handleDotClick(e, 4)}></div>
+          <div
+            className="dot"
+            ref={(el) => {
+              dotsRefs.current[0] = el;
+            }}
+            onClick={(e) => handleDotClick(e, 1)}
+          ></div>
+          <div
+            className="dot"
+            ref={(el) => {
+              dotsRefs.current[3] = el;
+            }}
+            onClick={(e) => handleDotClick(e, 4)}
+          ></div>
         </div>
         <div className="third">
-          <div className="dot" onClick={(e) => handleDotClick(e, 6)}></div>
-          <div className="dot" onClick={(e) => handleDotClick(e, 5)}></div>
+          <div
+            className="dot"
+            ref={(el) => {
+              dotsRefs.current[5] = el;
+            }}
+            onClick={(e) => handleDotClick(e, 6)}
+          ></div>
+          <div
+            className="dot"
+            ref={(el) => {
+              dotsRefs.current[4] = el;
+            }}
+            onClick={(e) => handleDotClick(e, 5)}
+          ></div>
         </div>
         {lines.map((line, index) => (
           <LineBetweenPoints
